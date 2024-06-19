@@ -1,7 +1,7 @@
 namespace Shop.DAL.Models; 
 
-public class Game : BaseEntity{
-
+public class Game : BaseEntity
+{
     public string Name {get;set;} = null!;
     public string Description {get;set;} = null!;
     public string Developer {get;set;} = null!;
@@ -9,5 +9,5 @@ public class Game : BaseEntity{
     public decimal Price {get;set;}
     public string ImageUrl {get;set;} = null!;
     public IEnumerable<Category>? Categories {get;set;}
-
+    public IEnumerable<OrderItem>? OrderItems {get;set;}
 }
