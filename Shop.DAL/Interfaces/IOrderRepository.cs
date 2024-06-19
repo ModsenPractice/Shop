@@ -1,12 +1,16 @@
+using Shop.DAL.Common.RequestParams;
 using Shop.DAL.Models;
 
-namespace Shop.DAL.Interfaces; 
+namespace Shop.DAL.Interfaces;
 
-public interface IOrderRepository{ 
-    Task<IEnumerable<Order>> GetOrdersAsync();
-    Task<IEnumerable<Order>> GetOrdersByUserIdAsync(Guid userId);
-    Task<Order> GetOrderByIdAsync(Guid id); 
-    Task DeleteOrderAsync(Guid id); 
-    Task UpdateOrderAsync(Guid id, Order order); 
-    Task<Guid> CreateOrderAsync(Order order);   
+public interface IOrderRepository
+{
+    Task<IEnumerable<Order>> GetOrdersAsync(OrderParameters parameters,
+        CancellationToken cancellationToken);
+    Task<IEnumerable<Order>> GetOrdersByUserIdAsync(Guid userId, OrderParameters parameters,
+        CancellationToken cancellationToken);
+    Task<Order> GetOrderByIdAsync(Guid id, CancellationToken cancellationToken);
+    Task DeleteOrderAsync(Guid id, CancellationToken cancellationToken);
+    Task UpdateOrderAsync(Guid id, Order order, CancellationToken cancellationToken);
+    Task<Guid> CreateOrderAsync(Order order, CancellationToken cancellationToken);
 }
