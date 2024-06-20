@@ -10,7 +10,7 @@ public interface IGameRepository
     Task<Game> GetGameByIdAsync(Guid id, CancellationToken cancellationToken);
     Task<IEnumerable<Game>> GetGamesByCategoryAsync(Category category, GameParameters parameters,
         CancellationToken cancellationToken);
-    Task DeleteGameAsync(Guid id, CancellationToken cancellationToken);
-    Task UpdateGameAsync(Guid id, Game game, CancellationToken cancellationToken);
-    Task<Guid> CreateGameAsync(Game game, CancellationToken cancellationToken);
+    void DeleteGame(Guid id, CancellationToken cancellationToken);
+    void UpdateGame(Game game, CancellationToken cancellationToken);
+    void CreateGame(Game game, CancellationToken cancellationToken);
 }

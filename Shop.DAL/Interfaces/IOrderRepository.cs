@@ -10,7 +10,7 @@ public interface IOrderRepository
     Task<IEnumerable<Order>> GetOrdersByUserIdAsync(Guid userId, OrderParameters parameters,
         CancellationToken cancellationToken);
     Task<Order> GetOrderByIdAsync(Guid id, CancellationToken cancellationToken);
-    Task DeleteOrderAsync(Guid id, CancellationToken cancellationToken);
-    Task UpdateOrderAsync(Guid id, Order order, CancellationToken cancellationToken);
-    Task<Guid> CreateOrderAsync(Order order, CancellationToken cancellationToken);
+    void DeleteOrder(Guid id, CancellationToken cancellationToken);
+    void UpdateOrder(Order order, CancellationToken cancellationToken);
+    void CreateOrder(Order order, CancellationToken cancellationToken);
 }

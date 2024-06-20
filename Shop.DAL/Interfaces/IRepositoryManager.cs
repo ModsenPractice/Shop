@@ -1,6 +1,6 @@
 namespace Shop.DAL.Interfaces;
 
-public interface IRepositoryManager
+public interface IUnitOfWork
 {
     public IGameRepository GameRepository { get; }
     public IOrderRepository OrderRepository { get; }
