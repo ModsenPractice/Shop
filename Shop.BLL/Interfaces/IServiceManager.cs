@@ -1,10 +1,11 @@
 namespace Shop.BLL.Interfaces{
     public interface IServiceManager{ 
-        public IGameService GameSerice { get; }
-        public ICategoryService CategoryService { get; }
-        public IAuthService AuthService { get; }
-        public IOrderService OrderService { get; }
-        public IOrderItemService OrderItemService { get; }
-        public IUserService UserService { get; }
+        IGameService GameSerice { get; }
+        ICategoryService CategoryService { get; }
+        IAuthService AuthService { get; }
+        IOrderService OrderService { get; }
+        IOrderItemService OrderItemService { get; }
+        IUserService UserService { get; }
+        ITokenService TokenService { get; }
     }
 }

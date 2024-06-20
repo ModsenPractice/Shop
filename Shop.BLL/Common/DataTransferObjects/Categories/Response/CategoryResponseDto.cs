@@ -1,7 +1,8 @@
 namespace Shop.BLL.Common.DataTransferObjects.Categories
 {
-   public abstract record CategoryForManipulationDto
+   public record CategoryResponseDto
    {
+      public Guid Id { get; set; }
       public string Name { get; set; } = null!;
    }
 }

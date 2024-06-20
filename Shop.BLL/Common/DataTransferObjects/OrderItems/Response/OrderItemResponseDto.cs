@@ -2,10 +2,10 @@ using Shop.BLL.Common.DataTransferObjects.Games;
 
 namespace Shop.BLL.Common.DataTransferObjects.OrderItems
 {
-   public record OrderItemDto
+   public record OrderItemResponseDto
    {
       public Guid Id { get; set; }
-      public GameForOrderDto Game { get; set; } = null!;
+      public GameForOrderResponseDto Game { get; set; } = null!;
       public int Count { get; set; }
    }
 }

@@ -2,7 +2,7 @@ using Shop.BLL.Common.DataTransferObjects.Categories;
 
 namespace Shop.BLL.Common.DataTransferObjects.Games
 {
-   public record GameDto
+   public record GameResponseDto
    {
       public Guid Id { get; set; }
       public string Name { get; set; } = null!;
@@ -11,6 +11,6 @@ namespace Shop.BLL.Common.DataTransferObjects.Games
       public string Publisher { get; set; } = null!;
       public decimal Price { get; set; }
       public string ImageUrl { get; set; } = null!;
-      public IEnumerable<CategoryDto> Categories { get; set; } = null!;
+      public IEnumerable<CategoryResponseDto> Categories { get; set; } = null!;
    }
 }

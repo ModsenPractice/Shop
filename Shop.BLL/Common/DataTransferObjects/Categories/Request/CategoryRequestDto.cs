@@ -1,8 +1,7 @@
 namespace Shop.BLL.Common.DataTransferObjects.Categories
 {
-   public record CategoryDto
+   public abstract record CategoryRequestDto
    {
-      public Guid Id { get; set; }
       public string Name { get; set; } = null!;
    }
 }

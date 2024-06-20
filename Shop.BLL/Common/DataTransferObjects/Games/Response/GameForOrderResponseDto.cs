@@ -1,6 +1,6 @@
 namespace Shop.BLL.Common.DataTransferObjects.Games
 {
-   public record GameForOrderDto
+   public record GameForOrderResponseDto
    {
       public Guid Id { get; set; }
       public string Name { get; set; } = null!;
