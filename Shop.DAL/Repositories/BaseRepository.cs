@@ -5,7 +5,7 @@ using Shop.DAL.Interfaces;
 
 namespace Shop.DAL.Repositories;
 
-public class BaseRepository<T> : IBaseRepository<T> where T : class
+public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
 {
     protected readonly ShopContext _context;
 
