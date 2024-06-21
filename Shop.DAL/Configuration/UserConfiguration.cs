@@ -8,12 +8,11 @@ namespace Shop.DAL.Configuration
     {
         private const int FIRST_NAME_MAX_LENGTH = 50;
         private const int LAST_NAME_MAX_LENGTH = 50;
-        //TODO Move const to configuration
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            //All fields of IdentityUser configured by of identity framework
+            //IdentityUser configured by identity framework
 
-            //User - Order| One to Many
+            //User - Order | One to Many
             builder.HasMany(u => u.Orders)
                 .WithOne(o => o.User)
                 .HasForeignKey(o => o.UserId)

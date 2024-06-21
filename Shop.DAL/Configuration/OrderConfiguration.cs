@@ -11,7 +11,6 @@ namespace Shop.DAL.Configuration
         //Total numbers after the dot
         private const int PRICE_SCALE = 3;
 
-        //TODO create triggers for createdAt and modifiedAt; Move const to configuration
         public override void Configure(EntityTypeBuilder<Order> builder)
         {
             base.Configure(builder);

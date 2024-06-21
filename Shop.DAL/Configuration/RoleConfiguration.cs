@@ -7,10 +7,9 @@ namespace Shop.DAL.Configuration
     public class RoleConfiguration : IEntityTypeConfiguration<IdentityRole<Guid>>
     {
         private readonly string[] _roles = ["User", "Admin"];
-        //TODO Move roles to configuration
         public void Configure(EntityTypeBuilder<IdentityRole<Guid>> builder)
         {
-            //All fields of IdentityRole configured by of identity framework
+            //IdentityRole configured by identity framework
 
             var roles = new IdentityRole<Guid>[_roles.Length];
             for (int i = 0; i < _roles.Length; i++)
