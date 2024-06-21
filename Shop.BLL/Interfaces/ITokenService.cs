@@ -1,7 +1,7 @@
-using System.Security.Principal;
+using Shop.DAL.Models;
 
 namespace Shop.BLL.Interfaces;
 
 public interface ITokenService{ 
-    Task<string> CreateTokenAsync(string email); 
+    Task<string> CreateTokenAsync(User user); 
 }

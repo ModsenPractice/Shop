@@ -6,8 +6,8 @@ namespace Shop.BLL.Interfaces{
         Task<IEnumerable<GameForOrderResponseDto>> GetGamesByOrderAsync(Guid id); 
         Task<IEnumerable<GameResponseDto>> GetGamesByCategoryAsync(Guid id); 
         Task<GameResponseDto> GetGameByIdAsync(Guid id); 
-        Task CreateGameAsync(GameRequestCreationDto dto);
-        Task UpdateGameAsync(Guid id, GameRequestUpdateDto dto); 
+        Task CreateGameAsync(GameRequestCreationDto gameRequestCreationDto);
+        Task UpdateGameAsync(Guid id, GameRequestUpdateDto gameRequestUpdateDto); 
         Task DeleteGameAsync(Guid id); 
     }
 }

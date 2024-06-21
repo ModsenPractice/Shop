@@ -5,6 +5,6 @@ namespace Shop.BLL.Interfaces{
         Task<IEnumerable<OrderResponseDto>> GetOrdersAsync(); 
         Task<IEnumerable<OrderResponseDto>> GetOrdersByUserIdAsync(Guid id); 
         Task<OrderResponseDto> GetOrderByIdAsync(Guid id); 
-        Task CreateOrderAsync(OrderRequestCreationDto dto);
+        Task CreateOrderAsync(OrderRequestCreationDto orderRequestCreationDto);
     }
 }
