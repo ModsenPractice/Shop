@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -27,12 +28,7 @@ namespace Shop.DAL.Contexts
       {
          base.OnModelCreating(modelBuilder);
 
-         modelBuilder.ApplyConfiguration(new CategoryConfiguration());
-         modelBuilder.ApplyConfiguration(new GameConfiguration());
-         modelBuilder.ApplyConfiguration(new OrderConfiguration());
-         modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
-         modelBuilder.ApplyConfiguration(new RoleConfiguration());
-         modelBuilder.ApplyConfiguration(new UserConfiguration());
+         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
       }
 
    }
