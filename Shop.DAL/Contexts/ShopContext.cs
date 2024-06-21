@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Shop.DAL.Configuration;
 using Shop.DAL.Models;
 
 namespace Shop.DAL.Contexts
@@ -24,6 +25,14 @@ namespace Shop.DAL.Contexts
 
       protected override void OnModelCreating(ModelBuilder modelBuilder)
       {
+         base.OnModelCreating(modelBuilder);
+
+         modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+         modelBuilder.ApplyConfiguration(new GameConfiguration());
+         modelBuilder.ApplyConfiguration(new OrderConfiguration());
+         modelBuilder.ApplyConfiguration(new OrderItemConfiguration());
+         modelBuilder.ApplyConfiguration(new RoleConfiguration());
+         modelBuilder.ApplyConfiguration(new UserConfiguration());
       }
 
    }
