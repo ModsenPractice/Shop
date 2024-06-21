@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Shop.DAL.Configuration
+namespace Shop.DAL.Seed
 {
     public class RoleSeed : IEntityTypeConfiguration<IdentityRole<Guid>>
     {
@@ -12,7 +12,11 @@ namespace Shop.DAL.Configuration
             var roles = new IdentityRole<Guid>[_roles.Length];
             for (int i = 0; i < _roles.Length; i++)
             {
-                roles[i] = new IdentityRole<Guid>(_roles[i]);
+                roles[i] = new IdentityRole<Guid>(_roles[i])
+                {
+                    Id = Guid.NewGuid(),
+                    NormalizedName = _roles[i].ToUpper()
+                };
             }
 
             builder.HasData(roles);
