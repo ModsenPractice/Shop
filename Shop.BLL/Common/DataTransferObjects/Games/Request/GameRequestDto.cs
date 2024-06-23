@@ -9,7 +9,9 @@ namespace Shop.BLL.Common.DataTransferObjects.Games
       public string Developer { get; set; } = null!;
       public string Publisher { get; set; } = null!;
       public decimal Price { get; set; }
+      //May be change to IFormFile
       public string ImageUrl { get; set; } = null!;
-      public IEnumerable<CategoryRequestDto> Categories { get; set; } = null!;
+
+      //May be guid collection of categories should be added
    }
 }
