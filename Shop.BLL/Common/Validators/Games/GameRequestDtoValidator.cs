@@ -4,7 +4,7 @@ using Shop.BLL.Common.Validators.Categories;
 
 namespace Shop.BLL.Common.Validators.Games
 {
-    public class GameRequestDtoValidator<T> : AbstractValidator<T> where T : GameRequestDto
+    public abstract class GameRequestDtoValidator<T> : AbstractValidator<T> where T : GameRequestDto
     {
         protected const int MIN_NAME_LENGTH = 1;
         protected const int MAX_NAME_LENGTH = 30;
