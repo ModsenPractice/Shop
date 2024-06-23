@@ -4,13 +4,5 @@ using Shop.BLL.Common.Validators.Categories;
 
 namespace Shop.BLL.Common.Validators.Games
 {
-    public class GameCreationDtoValidator : GameRequestDtoValidator<GameRequestCreationDto>
-    {
-        public GameCreationDtoValidator()
-        {
-            RuleFor(g => g.Categories).NotEmpty();
-            RuleForEach(g => g.Categories)
-                .SetValidator(new CategoryCreationDtoValidator());
-        }
-    }
+    public class GameCreationDtoValidator : GameRequestDtoValidator<GameRequestCreationDto>;
 }

@@ -9,7 +9,6 @@ namespace Shop.Test.DtoValidatorsTests
         private readonly CategoryCreationDtoValidator _creationValidator = new();
         private readonly CategoryUpdateDtoValidator _updateValidator = new();
 
-
         #region Creation dto validation
 
         [Theory]

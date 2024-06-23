@@ -124,7 +124,7 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg"
+                        Image = [2,1]
                     }
                 ],
             ];
@@ -142,11 +142,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [2,1],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2"
                         ]
                     },
                     nameof(GameRequestCreationDto.Name)
@@ -159,11 +159,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [2,1],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2"
                         ]
                     },
                     nameof(GameRequestCreationDto.Description)
@@ -176,11 +176,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "12345678901234567890123456789012345678901",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [2,1],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2"
                         ]
                     },
                     nameof(GameRequestCreationDto.Publisher)
@@ -193,11 +193,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "12345678901234567890123456789012345678901",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [2,1],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2"
                         ]
                     },
                     nameof(GameRequestCreationDto.Developer)
@@ -210,11 +210,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 0m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [2,1],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2"
                         ]
                     },
                     nameof(GameRequestCreationDto.Price)
@@ -227,11 +227,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = -10m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [2,1],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2"
                         ]
                     },
                     nameof(GameRequestCreationDto.Price)
@@ -244,11 +244,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 100000m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [2,1],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2"
                         ]
                     },
                     nameof(GameRequestCreationDto.Price)
@@ -261,31 +261,14 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "asdasdsadasd",
+                        Image = [2,1],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "1234567890123456789012345678901",
+                            "Test Category 2"
                         ]
                     },
-                    nameof(GameRequestCreationDto.ImageUrl)
-                ],
-                [
-                    new GameRequestCreationDto()
-                    {
-                        Name = "TestName",
-                        Description = "TestDescription",
-                        Developer = "TestDeveloper",
-                        Publisher = "TestPublisher",
-                        Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
-                        Categories =
-                        [
-                            new() { Name = "1234567890123456789012345678901"},
-                            new() { Name = "Test Category 2"},
-                        ]
-                    },
-                    $"{nameof(GameRequestCreationDto.Categories)}[0].{nameof(CategoryRequestCreationDto.Name)}"
+                    $"{nameof(GameRequestCreationDto.Categories)}[0]"
                 ],
             ];
         }
@@ -302,11 +285,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [1,2],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2",
                         ]
                     }
                 ],
@@ -318,16 +301,17 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper 2",
                         Publisher = "TestPublisher 2",
                         Price = 125m,
-                        ImageUrl = "https://www.image.com/wqreqqwt.png",
+                        Image = [1,2,1,1,2],
                         Categories =
                         [
-                            new() { Name = "Test Category 6"},
-                            new() { Name = "Test Category 8"},
+                            "Test Category 6",
+                            "Test Category 8",
                         ]
                     }
                 ],
             ];
         }
+
 
         public static IEnumerable<object[]> GetEmptyFieldsUpdateGames()
         {
@@ -377,7 +361,7 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg"
+                        Image = [1,2]
                     }
                 ],
             ];
@@ -395,11 +379,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [1,2],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2",
                         ]
                     },
                     nameof(GameRequestUpdateDto.Name)
@@ -412,11 +396,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [1,2],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2",
                         ]
                     },
                     nameof(GameRequestUpdateDto.Description)
@@ -429,11 +413,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "12345678901234567890123456789012345678901",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [1,2],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2",
                         ]
                     },
                     nameof(GameRequestUpdateDto.Publisher)
@@ -446,11 +430,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "12345678901234567890123456789012345678901",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [1,2],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2",
                         ]
                     },
                     nameof(GameRequestUpdateDto.Developer)
@@ -463,11 +447,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 0m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [1,2],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2",
                         ]
                     },
                     nameof(GameRequestUpdateDto.Price)
@@ -480,11 +464,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = -10m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [1,2],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2",
                         ]
                     },
                     nameof(GameRequestUpdateDto.Price)
@@ -497,11 +481,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 100000m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [1,2],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2",
                         ]
                     },
                     nameof(GameRequestUpdateDto.Price)
@@ -514,31 +498,14 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "asdasdsadasd",
+                        Image = [1,2],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "1234567890123456789012345678901",
+                            "Test Category 2",
                         ]
                     },
-                    nameof(GameRequestUpdateDto.ImageUrl)
-                ],
-                [
-                    new GameRequestUpdateDto()
-                    {
-                        Name = "TestName",
-                        Description = "TestDescription",
-                        Developer = "TestDeveloper",
-                        Publisher = "TestPublisher",
-                        Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
-                        Categories =
-                        [
-                            new() { Name = "1234567890123456789012345678901"},
-                            new() { Name = "Test Category 2"},
-                        ]
-                    },
-                    $"{nameof(GameRequestUpdateDto.Categories)}[0].{nameof(CategoryRequestUpdateDto.Name)}"
+                    $"{nameof(GameRequestUpdateDto.Categories)}[0]"
                 ],
             ];
         }
@@ -555,11 +522,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper",
                         Publisher = "TestPublisher",
                         Price = 12m,
-                        ImageUrl = "https://www.image.com/wqr12t.jpg",
+                        Image = [1,2,3],
                         Categories =
                         [
-                            new() { Name = "Test Category 1"},
-                            new() { Name = "Test Category 2"},
+                            "Test Category 1",
+                            "Test Category 2",
                         ]
                     }
                 ],
@@ -571,11 +538,11 @@ namespace Shop.Test.DtoValidatorsTests
                         Developer = "TestDeveloper 2",
                         Publisher = "TestPublisher 2",
                         Price = 125m,
-                        ImageUrl = "https://www.image.com/wqreqqwt.png",
+                        Image = [1,2,3,2,1],
                         Categories =
                         [
-                            new() { Name = "Test Category 6"},
-                            new() { Name = "Test Category 8"},
+                            "Test Category 6",
+                            "Test Category 8",
                         ]
                     }
                 ],
