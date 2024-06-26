@@ -11,6 +11,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.ConfigureIdentity(); 
 
 var connectionString = builder.Configuration.GetConnectionString("ShopDatabase");
 builder.Services.ConfigureDatabase(connectionString);
