@@ -28,10 +28,7 @@ public class HttpGlobalExceptionFilter(IHostEnvironment environment) : IAsyncExc
 
     private Task HandleValidationException(ExceptionContext context, ValidationException validationException)
     {
-        return context.WriteErrorAsync(400,
-            _environment.IsDevelopment()
-                ? validationException.Errors.Select(x => x.ErrorMessage).ToArray()
-                : ["Bad request"]);
+        return context.WriteErrorAsync(400, validationException.Errors.Select(x => x.ErrorMessage).ToArray());
     }
 
     private Task HandleNotFoundException(ExceptionContext context, NotFoundException notFoundException)
