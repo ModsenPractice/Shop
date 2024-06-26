@@ -27,13 +27,17 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
     public async Task<IEnumerable<T>> GetRange(Expression<Func<T, bool>> condition,
         CancellationToken cancellationToken)
     {
-        return await _context.Set<T>().Where(condition).ToListAsync(cancellationToken);
+        return await _context.Set<T>().Where(condition)
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
     }
 
     public async Task<T?> GetSingle(Expression<Func<T, bool>> condition,
         CancellationToken cancellationToken)
     {
-        return await _context.Set<T>().Where(condition).SingleOrDefaultAsync(cancellationToken);
+        return await _context.Set<T>().Where(condition)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(cancellationToken);
     }
 
     public void Update(T entity)
