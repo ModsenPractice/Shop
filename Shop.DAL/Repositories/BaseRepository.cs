@@ -11,12 +11,12 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
 
     public BaseRepository(ShopContext context)
     {
-        _context = context; 
+        _context = context;
     }
 
     public void Create(T entity)
     {
-        _context.Set<T>().Add(entity); 
+        _context.Set<T>().Add(entity);
     }
 
     public void Delete(T entity)
@@ -24,14 +24,20 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
         _context.Set<T>().Remove(entity);
     }
 
-    public async Task<IEnumerable<T>> GetRange(Expression<Func<T, bool>> condition, CancellationToken cancellationToken)
+    public async Task<IEnumerable<T>> GetRange(Expression<Func<T, bool>> condition,
+        CancellationToken cancellationToken)
     {
-        return await _context.Set<T>().Where(condition).ToListAsync();
+        return await _context.Set<T>().Where(condition)
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
     }
 
-    public async Task<T?> GetSingle(Expression<Func<T, bool>> condition, CancellationToken cancellationToken)
+    public async Task<T?> GetSingle(Expression<Func<T, bool>> condition,
+        CancellationToken cancellationToken)
     {
-        return await _context.Set<T>().Where(condition).SingleOrDefaultAsync();
+        return await _context.Set<T>().Where(condition)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(cancellationToken);
     }
 
     public void Update(T entity)
