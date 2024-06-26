@@ -35,10 +35,17 @@ public class UserService : IUserService
 
     public async Task<UserResponseDto> GetUserByIdAsync(Guid id)
     {
-        var user = await _userManager.FindByIdAsync(id.ToString())
-            ?? throw new UserNotFoundException(id); 
-        var userDto = _mapper.Map<UserResponseDto>(user); 
-        return userDto; 
+        var user = await _userManager.FindByIdAsync(id.ToString());
+        if(user is not null)
+        {
+            var userDto = _mapper.Map<UserResponseDto>(user); 
+            return userDto;
+        }
+        else
+        {
+            _logger.LogError("User not found exception in method GetUserByIdAsync in UserService");
+            throw new UserNotFoundException(id);
+        } 
     }
 
     public async Task<IEnumerable<UserResponseDto>> GetUsersAsync()
@@ -54,6 +61,9 @@ public class UserService : IUserService
             ?? throw new UserNotFoundException(id); 
         _mapper.Map(userRequestUpdateDto, user); 
         var result = await _userManager.UpdateAsync(user);
-        if(!result.Succeeded) throw new InternalException(); 
+        if(!result.Succeeded){
+            _logger.LogError("Internal exception in method UpdateUserAsync in UserService");
+            throw new InternalException();   
+        } 
     }
 }
