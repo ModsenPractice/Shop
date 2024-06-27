@@ -8,10 +8,14 @@ public class CategoryProfile : Profile
 {
     public CategoryProfile()
     {
-        CreateMap<Category, CategoryResponseDto>(); 
+        CreateMap<Category, CategoryResponseDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
 
-        CreateMap<CategoryRequestCreationDto, Category>();
+        CreateMap<CategoryRequestCreationDto, Category>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
 
-        CreateMap<CategoryRequestUpdateDto, Category>(); 
+        CreateMap<CategoryRequestUpdateDto, Category>()
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name));
     }
 }
