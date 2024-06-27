@@ -14,17 +14,17 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
         _context = context;
     }
 
-    public void Create(T entity)
+    public virtual void Create(T entity)
     {
         _context.Set<T>().Add(entity);
     }
 
-    public void Delete(T entity)
+    public virtual void Delete(T entity)
     {
         _context.Set<T>().Remove(entity);
     }
 
-    public async Task<IEnumerable<T>> GetRange(Expression<Func<T, bool>> condition,
+    public virtual async Task<IEnumerable<T>> GetRange(Expression<Func<T, bool>> condition,
         CancellationToken cancellationToken)
     {
         return await _context.Set<T>().Where(condition)
@@ -32,7 +32,7 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
             .ToListAsync(cancellationToken);
     }
 
-    public async Task<T?> GetSingle(Expression<Func<T, bool>> condition,
+    public virtual async Task<T?> GetSingle(Expression<Func<T, bool>> condition,
         CancellationToken cancellationToken)
     {
         return await _context.Set<T>().Where(condition)
@@ -40,7 +40,7 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public void Update(T entity)
+    public virtual void Update(T entity)
     {
         _context.Set<T>().Update(entity);
     }

@@ -6,6 +6,7 @@ namespace Shop.BLL.Common.DataTransferObjects.OrderItems
    {
       public Guid Id { get; set; }
       public GameForOrderResponseDto Game { get; set; } = null!;
+      public Guid OrderId { get; set; }
       public int Count { get; set; }
    }
 }
