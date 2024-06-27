@@ -27,25 +27,27 @@ public class UserService : IUserService
     {
         var user = await _userManager.FindByIdAsync(id.ToString()); 
 
-        if(user is not null)
+        if(user is null)
         { 
-            await _userManager.DeleteAsync(user); 
+            _logger.LogError("User not found exception in method DeleteUserAsync in UserService");
+            throw new NotFoundException($"User with id: {id} not found.");
         }
+
+        await _userManager.DeleteAsync(user);
     } 
 
     public async Task<UserResponseDto> GetUserByIdAsync(Guid id)
     {
         var user = await _userManager.FindByIdAsync(id.ToString());
-        if(user is not null)
-        {
-            var userDto = _mapper.Map<UserResponseDto>(user); 
-            return userDto;
-        }
-        else
+        if(user is null)
         {
             _logger.LogError("User not found exception in method GetUserByIdAsync in UserService");
-            throw new UserNotFoundException(id);
-        } 
+            throw new NotFoundException($"User with id: {id} not found.");
+
+        }
+        
+        var userDto = _mapper.Map<UserResponseDto>(user); 
+        return userDto;
     }
 
     public async Task<IEnumerable<UserResponseDto>> GetUsersAsync()
@@ -57,8 +59,14 @@ public class UserService : IUserService
 
     public async Task UpdateUserAsync(Guid id, UserRequestUpdateDto userRequestUpdateDto)
     {
-        var user = await _userManager.FindByIdAsync(id.ToString())
-            ?? throw new UserNotFoundException(id); 
+        var user = await _userManager.FindByIdAsync(id.ToString()); 
+        
+        if(user is null)
+        {
+            _logger.LogError("User not found exception in method UpdateUserAsync in UserService");
+            throw new NotFoundException($"User with id: {id} not found."); 
+        }
+
         _mapper.Map(userRequestUpdateDto, user); 
         var result = await _userManager.UpdateAsync(user);
         if(!result.Succeeded){
