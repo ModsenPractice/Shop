@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Shop.BLL.Common.DataTransferObjects.Users;
+using Shop.BLL.Exceptions.BadRequestExceptions;
 using Shop.BLL.Exceptions.InternalExceptions;
 using Shop.BLL.Interfaces;
 using Shop.DAL.Models;
@@ -22,7 +23,8 @@ namespace Shop.BLL.Services
             _userManager = userManager;
             _logger = logger;
         }
-        public async Task<bool> AuthorizeUserAsync(UserRequestAuthorizationDto userRequestAuthorizationDto)
+        public async Task AuthorizeUserAsync(
+            UserRequestAuthorizationDto userRequestAuthorizationDto)
         {
             var user = await _userManager
                 .FindByEmailAsync(userRequestAuthorizationDto.Email);
@@ -30,12 +32,12 @@ namespace Shop.BLL.Services
             var res = user != null && await _userManager.CheckPasswordAsync(user,
                 userRequestAuthorizationDto.Password);
 
+            //throwing general UnauthorizedAccessException to hide from client
+            //if username or password are incorrect
             if (!res)
             {
-                return false;
+                throw new UnauthorizedAccessException("Incorrect username/password pair.");
             }
-
-            return true;
         }
 
         public async Task RegisterUserAsync(
@@ -62,7 +64,8 @@ namespace Shop.BLL.Services
                 _logger.LogError("Error occured while creating user: {error}",
                     errors);
 
-                throw new InternalException();
+                throw new UserRegistrationBadRequestException(
+                    $"Error occured while creating user: {errors}");
             }
         }
     }
