@@ -8,8 +8,8 @@ namespace Shop.DAL.Interfaces
          CancellationToken cancellationToken);
       public Task<IEnumerable<T>> GetRange(Expression<Func<T, bool>> condition,
          CancellationToken cancellationToken);
-      public void Create(T entity);
-      public void Update(T entity);
-      public void Delete(T entity);
+      public Task Create(T entity, CancellationToken cancellationToken);
+      public Task Update(T entity, CancellationToken cancellationToken);
+      public Task Delete(T entity, CancellationToken cancellationToken);
    }
 }

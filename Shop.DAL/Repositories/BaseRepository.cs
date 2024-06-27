@@ -14,14 +14,16 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
         _context = context;
     }
 
-    public void Create(T entity)
+    public async Task Create(T entity, CancellationToken cancellationToken)
     {
-        _context.Set<T>().Add(entity);
+        _context.Set<T>().Add(entity);    
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public void Delete(T entity)
+    public async Task Delete(T entity, CancellationToken cancellationToken)
     {
         _context.Set<T>().Remove(entity);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<IEnumerable<T>> GetRange(Expression<Func<T, bool>> condition,
@@ -40,8 +42,9 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public void Update(T entity)
+    public async Task Update(T entity, CancellationToken cancellationToken)
     {
         _context.Set<T>().Update(entity);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 }
