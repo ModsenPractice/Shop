@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureIdentity(); 
+builder.Services.ConfigureLogger(); 
 
 var connectionString = builder.Configuration.GetConnectionString("ShopDatabase");
 builder.Services.ConfigureDatabase(connectionString);
