@@ -1,5 +1,5 @@
 namespace Shop.BLL.Exceptions.InternalExceptions
 {
-    public class InternalException() :
-        Exception("Internal error occured during request processing");
+    public class InternalException(string message) :
+        Exception(message);
 }

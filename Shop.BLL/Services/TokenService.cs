@@ -4,7 +4,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using OpenIddict.Abstractions;
 using Shop.BLL.Common.Configuration;
-using Shop.BLL.Exceptions.InternalExceptions;
 using Shop.BLL.Interfaces;
 using Shop.DAL.Models;
 using static OpenIddict.Abstractions.OpenIddictConstants;
@@ -26,8 +25,11 @@ namespace Shop.BLL.Services
         public async Task<ClaimsIdentity> GetClaimsForToken(string userName,
             IEnumerable<string> scopes)
         {
+            //throwing UnauthorizedAccessException to hide from client
+            //if username or password are incorrect
+            //if user not found - incorrect username
             var user = await _userManager.FindByNameAsync(userName)
-                ?? throw new InternalException();
+                ?? throw new UnauthorizedAccessException("Incorrect username/password pair.");
 
             var identity = new ClaimsIdentity(
                 authenticationType: TokenValidationParameters.DefaultAuthenticationType,
