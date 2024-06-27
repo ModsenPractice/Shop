@@ -30,7 +30,7 @@ namespace Shop.BLL.Services
 
         public async Task DeleteGameAsync(Guid id) 
         {
-            var game = await _gameRepository.GetSingle(g=>g.Id == id, CancellationToken.None);
+            var game = await _gameRepository.GetSingle(g => g.Id == id, CancellationToken.None);
 
             if (game is not null)
             {
@@ -42,6 +42,7 @@ namespace Shop.BLL.Services
         public async Task CreateGameAsync(GameRequestCreationDto gameRequestCreationDto)
         {
             var game = _mapper.Map<Game>(gameRequestCreationDto);
+
             _gameRepository.Create(game);
             await _unitOfWork.SaveChangesAsync();
         }
@@ -50,25 +51,33 @@ namespace Shop.BLL.Services
         {
             var game = await _gameRepository.GetSingle(g => g.Id == id, CancellationToken.None)
                 ?? throw new GameNotFoundException(id);
+
             _mapper.Map(gameRequestUpdateDto, game);
             _gameRepository.Update(game);
+            
             await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<GameResponseDto>> GetGamesAsync()
         {
             var games = await _gameRepository.GetRange(g=>true,CancellationToken.None);
-            /*if(!games.Any())
+            if(games.Any())
             {
-                throw
-            }*/
-            var gamesDtos = _mapper.Map<IEnumerable<GameResponseDto>>(games);
-            return gamesDtos;
+                var gamesDtos = _mapper.Map<IEnumerable<GameResponseDto>>(games);
+                return gamesDtos;
+            }
+            else
+            {
+                _logger.LogError("Games not found exception in method GetGamesAsync in GameService");
+                throw new GameNotFoundException();
+            }
+           
         }
 
         public async Task<GameResponseDto> GetGameByIdAsync(Guid id)
         {
-            var game = await _gameRepository.GetSingle(g=>g.Id==id, CancellationToken.None);
+            var game = await _gameRepository.GetSingle(g => g.Id==id, CancellationToken.None);
+
             if (game is not null)
             {
                 var gameDto = _mapper.Map<GameResponseDto>(game);
@@ -83,16 +92,39 @@ namespace Shop.BLL.Services
 
         public async Task<IEnumerable<GameResponseDto>> GetGamesByCategoryAsync(Guid id)
         {
-            var games = await _gameRepository.GetRange(g => true, CancellationToken.None);
-            var gamesDtos = _mapper.Map<IEnumerable<GameResponseDto>>(games);
-            return gamesDtos;
+            var games = await _gameRepository.GetRange(g => g.Categories !=null && 
+                g.Categories.Any(c => c.Id == id), CancellationToken.None);
+
+            if(games.Any())
+            {
+                var gamesDtos = _mapper.Map<IEnumerable<GameResponseDto>>(games);
+                return gamesDtos;
+            }
+            else
+            {
+                _logger.LogError("Games not found exception in method GetGamesByCategoryAsync in GameService");
+                throw new GameNotFoundException();
+            }
+            
         }
 
         public async Task<IEnumerable<GameForOrderResponseDto>> GetGamesByOrderAsync(Guid id)
         {
-            var games = await _gameRepository.GetRange(g => true, CancellationToken.None);
-            var gamesDtos = _mapper.Map<IEnumerable<GameForOrderResponseDto>>(games);
-            return gamesDtos;
+            var games = await _gameRepository.GetRange(g => g.OrderItems != null && 
+                g.OrderItems.Any(oi => oi.Id == id), CancellationToken.None);
+
+            if (games.Any())
+            {
+                var gamesDtos = _mapper.Map<IEnumerable<GameForOrderResponseDto>>(games);
+
+                return gamesDtos;
+            }
+            else
+            {
+                _logger.LogError("Games not found exception in method GetGamesByOrderAsync in GameService");
+                throw new GameNotFoundException();
+            }
+
         }
     }
 }
