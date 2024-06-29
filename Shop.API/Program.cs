@@ -1,6 +1,7 @@
 using Shop.API.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Shop.DAL;
+using Shop.BLL.Extentions;
 using Shop.DAL.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureIdentity(); 
 builder.Services.ConfigureLogger(); 
+builder.Services.ConfigureAutoFluentValidation(); 
 
 var connectionString = builder.Configuration.GetConnectionString("ShopDatabase");
 builder.Services.ConfigureDatabase(connectionString);
