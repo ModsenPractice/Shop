@@ -11,11 +11,13 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.ConfigureIdentity(); 
-builder.Services.ConfigureLogger(); 
+builder.Services.ConfigureIdentity();
+builder.Services.ConfigureLogger();
 
 var connectionString = builder.Configuration.GetConnectionString("ShopDatabase");
 builder.Services.ConfigureDatabase(connectionString);
+
+builder.Services.ConfigureOpenIdDict();
 
 var app = builder.Build();
 
@@ -28,6 +30,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
