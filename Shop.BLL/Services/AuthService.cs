@@ -26,10 +26,10 @@ namespace Shop.BLL.Services
             UserRequestAuthorizationDto userRequestAuthorizationDto)
         {
             var user = await _userManager
-                .FindByEmailAsync(userRequestAuthorizationDto.Email);
+                .FindByNameAsync(userRequestAuthorizationDto.Username!);
 
             var res = user != null && await _userManager.CheckPasswordAsync(user,
-                userRequestAuthorizationDto.Password);
+                userRequestAuthorizationDto.Password!);
 
             //throwing general UnauthorizedAccessException to hide from client
             //if username or password are incorrect
@@ -65,6 +65,18 @@ namespace Shop.BLL.Services
 
                 throw new BadRequestException(
                     $"Error occured while creating user: {errors}");
+            }
+        }
+
+
+        public async Task ValidateUsernameAsync(string? username)
+        {
+            var res = !string.IsNullOrEmpty(username) && await _userManager
+                .FindByNameAsync(username) != null;
+
+            if (!res)
+            {
+                throw new UnauthorizedException("Incorrect username/password pair.");
             }
         }
     }

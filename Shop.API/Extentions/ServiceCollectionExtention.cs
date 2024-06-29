@@ -3,6 +3,8 @@ using Shop.DAL.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
 using Shop.API.Clients;
+using Shop.BLL.Common.Configuration;
+using Shop.API.Configuration;
 
 namespace Shop.API.Extensions;
 
@@ -10,8 +12,16 @@ public static class ServiceCollectionExtention
 {
     public static IServiceCollection ConfigureIdentity(this IServiceCollection services)
     {
-        services.AddIdentity<User, IdentityRole>()
-            .AddEntityFrameworkStores<ShopContext>();
+        services.AddIdentity<User, IdentityRole<Guid>>(options =>
+        {
+            options.Password.RequireNonAlphanumeric = false;
+            options.Password.RequireUppercase = false;
+            options.Password.RequireLowercase = false;
+
+            options.User.RequireUniqueEmail = true;
+        })
+            .AddEntityFrameworkStores<ShopContext>()
+            .AddDefaultTokenProviders();
         return services;
     }
 
@@ -36,19 +46,30 @@ public static class ServiceCollectionExtention
             })
             .AddServer(options =>
             {
-                options.SetTokenEndpointUris("api/connect/token");
+                options.SetTokenEndpointUris("api/connect/token", "api/refresh/token");
 
                 options.AllowPasswordFlow()
                     .AllowRefreshTokenFlow();
 
                 options.AddDevelopmentEncryptionCertificate()
-                    .AddDevelopmentSigningCertificate();
+                    .AddDevelopmentSigningCertificate()
+                    .DisableAccessTokenEncryption();
+
+                options.RegisterScopes("api.shop.games");
 
                 options.UseAspNetCore()
                     .EnableAuthorizationEndpointPassthrough()
-                    .EnableTokenEndpointPassthrough();
+                    .EnableTokenEndpointPassthrough()
+                    .DisableTransportSecurityRequirement();
             });
 
         return services;
+    }
+
+    public static IServiceCollection ConfigureOptions(this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        return services.Configure<ScopesOptions>(configuration.GetSection(ScopesOptions.Scopes))
+            .Configure<ClientsOptions>(configuration.GetSection(ClientsOptions.Clients));
     }
 }

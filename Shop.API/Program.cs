@@ -1,9 +1,7 @@
 using Shop.API.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Shop.DAL;
-using Shop.DAL.Contexts;
 using Shop.BLL;
-using Shop.BLL.Common.MappingProfiles;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +18,7 @@ builder.Services.ConfigureLogger();
 var connectionString = builder.Configuration.GetConnectionString("ShopDatabase");
 builder.Services.ConfigureDatabase(connectionString);
 
+builder.Services.ConfigureOptions(builder.Configuration);
 builder.Services.ConfigureOpenIdDict();
 
 var app = builder.Build();
