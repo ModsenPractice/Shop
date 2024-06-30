@@ -7,5 +7,5 @@ public interface IUnitOfWork
     public ICategoryRepository CategoryRepository { get; }
     public IOrderItemRepository OrderItemRepository { get; }
 
-    public Task SaveChangesAsync();
+    public Task SaveChangesAsync(CancellationToken cancellationToken);
 }
