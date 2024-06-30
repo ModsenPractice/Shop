@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Shop.BLL.Common.DataTransferObjects.Orders;
 using Shop.BLL.Interfaces;
 
@@ -6,6 +7,7 @@ namespace Shop.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize(Policy = "User")]
 public class OrderController(IOrderService orderService) : ControllerBase
 {
     [HttpGet]
@@ -27,6 +29,7 @@ public class OrderController(IOrderService orderService) : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Policy = "Admin")]
     public async Task CreateOrderAsync([FromBody] OrderRequestCreationDto orderRequest, CancellationToken token)
     {
         await orderService.CreateOrderAsync(orderRequest, token);
