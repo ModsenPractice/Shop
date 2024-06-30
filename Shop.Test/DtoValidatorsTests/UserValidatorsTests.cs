@@ -295,14 +295,21 @@ namespace Shop.Test.DtoValidatorsTests
                 [
                     new UserRequestAuthorizationDto()
                     {
-                        Email = "test@gmail.com",
+                        Username = "testUsernametestUsernametestUs",
                         Password = "qwertyui123456789"
                     }
                 ],
                 [
                     new UserRequestAuthorizationDto()
                     {
-                        Email = "test2mail@gmail.com",
+                        Username = "testUsername",
+                        Password = "qwertyui1234567812319"
+                    }
+                ],
+                [
+                    new UserRequestAuthorizationDto()
+                    {
+                        Username = "name",
                         Password = "qwertyui1234567812319"
                     }
                 ]
@@ -318,19 +325,19 @@ namespace Shop.Test.DtoValidatorsTests
                     {
                         Password = "qwertyui123456789"
                     },
-                    nameof(UserRequestAuthorizationDto.Email)
+                    nameof(UserRequestAuthorizationDto.Username)
                 ],
                 [
                     new UserRequestAuthorizationDto()
                     {
-                        Email = "test2mail@gmail.com"
+                        Username = "test2mail@gmail.com"
                     },
                     nameof(UserRequestAuthorizationDto.Password)
                 ],
                 [
                     new UserRequestAuthorizationDto()
                     {
-                        Email = "test2mail@gmail.com",
+                        Username = "test2mail@gmail.com",
                         Password = "1234"
                     },
                     nameof(UserRequestAuthorizationDto.Password)
@@ -338,10 +345,10 @@ namespace Shop.Test.DtoValidatorsTests
                 [
                     new UserRequestAuthorizationDto()
                     {
-                        Email = "test",
+                        Username = "tes",
                         Password = "123412312312"
                     },
-                    nameof(UserRequestAuthorizationDto.Email)
+                    nameof(UserRequestAuthorizationDto.Username)
                 ]
             ];
         }

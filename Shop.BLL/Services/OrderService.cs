@@ -3,8 +3,8 @@ using Shop.BLL.Interfaces;
 using Shop.BLL.Common.DataTransferObjects.Orders;
 using Microsoft.Extensions.Logging;
 using Shop.DAL.Interfaces;
-using Shop.BLL.Exceptions.NotFoundExceptions;
 using Shop.DAL.Models;
+using Shop.BLL.Exceptions;
 
 namespace Shop.BLL.Services
 {

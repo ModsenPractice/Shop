@@ -4,6 +4,6 @@ namespace Shop.BLL.Common.Configuration
     {
         public const string Scopes = "Scopes";
 
-        public IEnumerable<string> ValidScopes = [];
+        public IEnumerable<string> ValidScopes { get; set; } = null!;
     }
 }

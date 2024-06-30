@@ -1,10 +1,8 @@
 ﻿using FluentValidation;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Shop.API.ActionFilters.Extensions;
-using Shop.BLL.Exceptions.BadRequestExceptions;
-using Shop.BLL.Exceptions.NotFoundExceptions;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
+using Shop.BLL.Exceptions;
 
 namespace Shop.API.ActionFilters;
 

@@ -12,6 +12,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="OpenIddict" Version="5.7.0" />
+    <PackageReference Include="OpenIddict.AspNetCore" Version="5.7.0" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="5.7.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="8.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
@@ -20,6 +23,7 @@
     <ProjectReference Include="..\Shop.BLL\Shop.BLL.csproj" />
     <ProjectReference Include="..\Shop.DAL\Shop.DAL.csproj" />
     <ProjectReference Include="..\Shop.DAL\Shop.DAL.csproj" />
+    <ProjectReference Include="..\Shop.BLL\Shop.BLL.csproj" />
   </ItemGroup>
 
 </Project>
