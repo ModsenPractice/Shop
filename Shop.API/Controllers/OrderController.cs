@@ -25,7 +25,7 @@ public class OrderController(IOrderService orderService) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetOrdersByUserId([FromBody] Guid userId, CancellationToken token)
     {
-        return Ok(await orderService.GetOrdersByUserIdAsync(userId, token)));
+        return Ok(await orderService.GetOrdersByUserIdAsync(userId, token));
     }
 
     [HttpPost]
