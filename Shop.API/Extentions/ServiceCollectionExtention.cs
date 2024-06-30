@@ -5,6 +5,12 @@ using Serilog;
 using Shop.API.Clients;
 using Shop.BLL.Common.Configuration;
 using Shop.API.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using OpenIddict.Abstractions;
+using Shop.API.AuthorizationRequirements.Requirements;
+using Microsoft.AspNetCore.Authorization;
+using Shop.API.AuthorizationRequirements.Handlers;
 
 namespace Shop.API.Extensions;
 
@@ -34,8 +40,15 @@ public static class ServiceCollectionExtention
         return services;
     }
 
-    public static IServiceCollection ConfigureOpenIdDict(this IServiceCollection services)
+    public static IServiceCollection ConfigureOpenIdDict(this IServiceCollection services,
+        IConfiguration configuration)
     {
+        var jwt = new JwtOptions();
+        configuration.GetSection(JwtOptions.Jwt).Bind(jwt);
+
+        var scopes = new ScopesOptions();
+        configuration.GetSection(ScopesOptions.Scopes).Bind(scopes);
+
         services.AddHostedService<PostmanClient>();
 
         services.AddOpenIddict()
@@ -55,13 +68,45 @@ public static class ServiceCollectionExtention
                     .AddDevelopmentSigningCertificate()
                     .DisableAccessTokenEncryption();
 
-                options.RegisterScopes("api.shop.games");
+                options.RegisterScopes(scopes.ValidScopes.ToArray());
 
                 options.UseAspNetCore()
                     .EnableAuthorizationEndpointPassthrough()
                     .EnableTokenEndpointPassthrough()
                     .DisableTransportSecurityRequirement();
+            })
+            .AddValidation(options =>
+            {
+                options.Configure(conf =>
+                {
+                    conf.TokenValidationParameters.ValidIssuers = jwt.ValidIssuers;
+                });
+                options.UseAspNetCore();
+                options.UseLocalServer();
+
+                options.AddAudiences(jwt.ValidAudiences.ToArray());
             });
+
+
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = OpenIddict.Validation.AspNetCore.OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
+            options.DefaultScheme = OpenIddict.Validation.AspNetCore.OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = OpenIddict.Validation.AspNetCore.OpenIddictValidationAspNetCoreDefaults.AuthenticationScheme;
+        });
+
+        return services;
+    }
+
+    public static IServiceCollection ConfigureAuthPolicies(this IServiceCollection services)
+    {
+        services.AddScoped<IAuthorizationHandler, RoleAuthorizationHandler>();
+
+        services.AddAuthorizationBuilder()
+            .AddPolicy("User", policy =>
+                policy.Requirements.Add(new RoleAuthorizationRequirement("user")))
+            .AddPolicy("Admin", policy =>
+                policy.Requirements.Add(new RoleAuthorizationRequirement("admin")));
 
         return services;
     }
@@ -70,6 +115,7 @@ public static class ServiceCollectionExtention
         IConfiguration configuration)
     {
         return services.Configure<ScopesOptions>(configuration.GetSection(ScopesOptions.Scopes))
-            .Configure<ClientsOptions>(configuration.GetSection(ClientsOptions.Clients));
+            .Configure<ClientsOptions>(configuration.GetSection(ClientsOptions.Clients))
+            .Configure<JwtOptions>(configuration.GetSection(JwtOptions.Jwt));
     }
 }

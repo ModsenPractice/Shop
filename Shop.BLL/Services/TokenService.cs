@@ -36,7 +36,7 @@ namespace Shop.BLL.Services
                 nameType: Claims.Name,
                 roleType: Claims.Role
             );
-
+            var roles = await _userManager.GetRolesAsync(user);
             identity
                 .SetClaim(Claims.Subject,
                     await _userManager.GetUserIdAsync(user))
@@ -44,6 +44,7 @@ namespace Shop.BLL.Services
                     await _userManager.GetUserNameAsync(user))
                 .SetClaim(Claims.Email, await _userManager.GetEmailAsync(user))
                 .SetClaim(Claims.Birthdate, user.BirthDay.ToString())
+                .SetClaim(Claims.Audience, "gameshop")
                 .SetClaims(Claims.Role, [.. (await _userManager.GetRolesAsync(user))]);
 
             var correctScopes = scopes.Intersect(_scopesOptions.ValidScopes);
@@ -60,9 +61,12 @@ namespace Shop.BLL.Services
             {
                 case Claims.Name or Claims.PreferredUsername:
                 case Claims.Role:
+                    yield return Destinations.AccessToken;
+                    yield return Destinations.IdentityToken;
+                    yield break;
+
                 case Claims.Email:
                 case Claims.Birthdate:
-                    yield return Destinations.AccessToken;
                     yield return Destinations.IdentityToken;
                     yield break;
 

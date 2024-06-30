@@ -7,7 +7,7 @@ namespace Shop.DAL
     public class ApplicationDesignTimeDbContextFactory : IDesignTimeDbContextFactory<ShopContext>
     {
         //Db user and password should be provided by console
-        //e.g.: dotnet ef migrations add "migration" -- user=username passord=password
+        //e.g.: dotnet ef database update -- user=username passord=password
         public ShopContext CreateDbContext(string[] args)
         {
             if (args.Length < 2)
@@ -28,13 +28,6 @@ namespace Shop.DAL
             optionsBuilder.UseOpenIddict();
 
             return new ShopContext(optionsBuilder.Options);
-        }
-    }
-
-    internal class ConfigurationBuilder
-    {
-        public ConfigurationBuilder()
-        {
         }
     }
 }

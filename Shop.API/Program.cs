@@ -19,7 +19,8 @@ var connectionString = builder.Configuration.GetConnectionString("ShopDatabase")
 builder.Services.ConfigureDatabase(connectionString);
 
 builder.Services.ConfigureOptions(builder.Configuration);
-builder.Services.ConfigureOpenIdDict();
+builder.Services.ConfigureAuthPolicies();
+builder.Services.ConfigureOpenIdDict(builder.Configuration);
 
 var app = builder.Build();
 

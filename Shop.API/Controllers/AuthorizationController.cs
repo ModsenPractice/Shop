@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OpenIddict.Abstractions;
 using OpenIddict.Client.AspNetCore;
@@ -80,5 +81,11 @@ namespace Shop.API.Controllers
             return NoContent();
         }
 
+        [Authorize(Policy = "User")]
+        [HttpGet("test")]
+        public IActionResult Test()
+        {
+            return Ok("Success");
+        }
     }
 }
