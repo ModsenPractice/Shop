@@ -3,14 +3,8 @@ using Shop.BLL.Interfaces;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Shop.DAL.Interfaces;
-using Microsoft.AspNetCore.Identity;
-using Shop.BLL.Common.DataTransferObjects.Users;
-using Shop.DAL.Repositories;
-using System.Linq.Expressions;
 using Shop.DAL.Models;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using Shop.BLL.Exceptions.NotFoundExceptions;
-using Shop.BLL.Common.DataTransferObjects.Games;
+using Shop.BLL.Exceptions;
 
 namespace Shop.BLL.Services
 {
@@ -57,7 +51,7 @@ namespace Shop.BLL.Services
             var category = _mapper.Map<Category>(categoryRequestCreationDto);
 
             _unitOfWork.CategoryRepository.Create(category);
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
 
             var categoryToReturn = _mapper.Map<CategoryResponseDto>(category);
 
@@ -77,7 +71,7 @@ namespace Shop.BLL.Services
             _mapper.Map(categoryRequestUpdateDto, category);
             _unitOfWork.CategoryRepository.Update(category);
 
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
 
         public async Task DeleteCategoryAsync(Guid id, CancellationToken cancellationToken)
@@ -92,7 +86,7 @@ namespace Shop.BLL.Services
 
             _unitOfWork.CategoryRepository.Delete(category);
 
-            await _unitOfWork.SaveChangesAsync();
+            await _unitOfWork.SaveChangesAsync(cancellationToken);
         }
     }
 }
