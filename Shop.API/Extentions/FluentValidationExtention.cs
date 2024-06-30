@@ -1,9 +1,7 @@
-using Microsoft.Extensions.DependencyInjection;
-using Npgsql.Replication;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 using FluentValidation; 
 
-namespace Shop.BLL.Extentions; 
+namespace Shop.API.Extentions; 
 
 public static class FluentValidationExtention
 {

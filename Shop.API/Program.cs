@@ -1,8 +1,7 @@
-using Shop.API.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Shop.DAL;
-using Shop.BLL.Extentions;
 using Shop.DAL.Contexts;
+using Shop.API.Extentions;
 
 var builder = WebApplication.CreateBuilder(args);
 

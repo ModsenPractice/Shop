@@ -3,7 +3,7 @@ using Shop.DAL.Contexts;
 using Microsoft.AspNetCore.Identity;
 using Serilog;
 
-namespace Shop.API.Extensions;
+namespace Shop.API.Extentions;
 
 public static class ServiceCollectionExtention
 {
