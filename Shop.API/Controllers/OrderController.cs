@@ -9,26 +9,26 @@ namespace Shop.API.Controllers;
 public class OrderController(IOrderService orderService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IEnumerable<OrderResponseDto>> GetOrdersAsync()
+    public async Task<IEnumerable<OrderResponseDto>> GetOrdersAsync(CancellationToken token)
     {
-        return await orderService.GetOrdersAsync();
+        return await orderService.GetOrdersAsync(token);
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<OrderResponseDto> GetOrderById(Guid id)
+    public async Task<OrderResponseDto> GetOrderById(Guid id, CancellationToken token)
     {
-        return await orderService.GetOrderByIdAsync(id);
+        return await orderService.GetOrderByIdAsync(id, token);
     }
 
     [HttpGet]
-    public async Task<IEnumerable<OrderResponseDto>> GetOrdersByUserId([FromBody] Guid userId)
+    public async Task<IEnumerable<OrderResponseDto>> GetOrdersByUserId([FromBody] Guid userId, CancellationToken token)
     {
-        return await orderService.GetOrdersByUserIdAsync(userId);
+        return await orderService.GetOrdersByUserIdAsync(userId, token);
     }
 
     [HttpPost]
-    public async Task Post([FromBody] OrderRequestCreationDto orderRequest)
+    public async Task CreateOrderAsync([FromBody] OrderRequestCreationDto orderRequest, CancellationToken token)
     {
-        await orderService.CreateOrderAsync(orderRequest);
+        await orderService.CreateOrderAsync(orderRequest, token);
     }
 }
