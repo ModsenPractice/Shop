@@ -9,9 +9,9 @@ namespace Shop.API.Controllers;
 public class OrderController(IOrderService orderService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IEnumerable<OrderResponseDto>> GetOrdersAsync(CancellationToken token)
+    public async Task<IEnumerable<OrderResponseDto>> GetOrdersAsync()
     {
-        return await orderService.GetOrdersAsync(token);
+        return await orderService.GetOrdersAsync();
     }
 
     [HttpGet("{id:guid}")]
