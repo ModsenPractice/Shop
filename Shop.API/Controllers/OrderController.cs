@@ -9,21 +9,21 @@ namespace Shop.API.Controllers;
 public class OrderController(IOrderService orderService) : ControllerBase
 {
     [HttpGet]
-    public async Task<IEnumerable<OrderResponseDto>> GetOrdersAsync(CancellationToken token)
+    public async Task<IActionResult> GetOrdersAsync(CancellationToken token)
     {
-        return await orderService.GetOrdersAsync(token);
+        return Ok(await orderService.GetOrdersAsync(token));
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<OrderResponseDto> GetOrderById(Guid id, CancellationToken token)
+    public async Task<IActionResult> GetOrderById(Guid id, CancellationToken token)
     {
-        return await orderService.GetOrderByIdAsync(id, token);
+        return Ok(await orderService.GetOrderByIdAsync(id, token));
     }
 
     [HttpGet]
-    public async Task<IEnumerable<OrderResponseDto>> GetOrdersByUserId([FromBody] Guid userId, CancellationToken token)
+    public async Task<IActionResult> GetOrdersByUserId([FromBody] Guid userId, CancellationToken token)
     {
-        return await orderService.GetOrdersByUserIdAsync(userId, token);
+        return Ok(await orderService.GetOrdersByUserIdAsync(userId, token)));
     }
 
     [HttpPost]
