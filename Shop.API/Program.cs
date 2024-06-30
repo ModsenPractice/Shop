@@ -1,13 +1,13 @@
-using Shop.API.Extensions;
-using Microsoft.EntityFrameworkCore;
+using Shop.API.ActionFilters;
 using Shop.DAL;
-using Shop.DAL.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddExceptionHandler<HttpGlobalExceptionHandler>();
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
