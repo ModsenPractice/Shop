@@ -14,11 +14,11 @@ using Shop.BLL.Common.DataTransferObjects.Games;
 
 namespace Shop.BLL.Services
 {
-    public class CategoryService: ICategoryService
+    public class CategoryService : ICategoryService
     {
         private readonly IMapper _mapper;
-        private readonly IUnitOfWork _unitOfWork; 
-        private readonly ILogger<CategoryService> _logger; 
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly ILogger<CategoryService> _logger;
 
         public CategoryService(IMapper mapper, IUnitOfWork unitOfWork, ILogger<CategoryService> logger)
         {
@@ -32,15 +32,15 @@ namespace Shop.BLL.Services
             var categories = await _unitOfWork.CategoryRepository.GetRange(c => true, cancellationToken);
 
             var categoriesDto = _mapper.Map<IEnumerable<CategoryResponseDto>>(categories);
-            
+
             return categoriesDto;
         }
 
         public async Task<CategoryResponseDto> GetCategoryByIdAsync(Guid id, CancellationToken cancellationToken)
         {
-            var category = await _unitOfWork.CategoryRepository.GetSingle(c => c.Id.Equals(id) ,cancellationToken);
+            var category = await _unitOfWork.CategoryRepository.GetSingle(c => c.Id.Equals(id), cancellationToken);
 
-            if(category is null)
+            if (category is null)
             {
                 _logger.LogError("Category not found exception in method GetCategoryByIdAsync in CategoryService");
                 throw new NotFoundException($"Category with id: {id} not found.");
@@ -51,19 +51,17 @@ namespace Shop.BLL.Services
             return categoryDto;
         }
 
-        public async Task CreateCategoryAsync(Guid id, CategoryRequestCreationDto categoryRequestCreationDto, CancellationToken cancellationToken)
+        public async Task<CategoryResponseDto> CreateCategoryAsync(Guid id,
+            CategoryRequestCreationDto categoryRequestCreationDto, CancellationToken cancellationToken)
         {
-            var category = await _unitOfWork.CategoryRepository.GetSingle(c => c.Id.Equals(id), cancellationToken);
+            var category = _mapper.Map<Category>(categoryRequestCreationDto);
 
-            if (category is null)
-            {
-                category = _mapper.Map<Category>(categoryRequestCreationDto);
-                _unitOfWork.CategoryRepository.Create(category);
-                await _unitOfWork.SaveChangesAsync();
-            }
+            _unitOfWork.CategoryRepository.Create(category);
+            await _unitOfWork.SaveChangesAsync();
 
-            _logger.LogError("Category not found exception in method CreateUserAsync in CategoryService");
-            throw new NotFoundException($"Category with id: {id} not found.");
+            var categoryToReturn = _mapper.Map<CategoryResponseDto>(category);
+
+            return categoryToReturn;
         }
 
         public async Task UpdateCategoryAsync(Guid id, CategoryRequestUpdateDto categoryRequestUpdateDto, CancellationToken cancellationToken)
@@ -86,7 +84,7 @@ namespace Shop.BLL.Services
         {
             var category = await _unitOfWork.CategoryRepository.GetSingle(c => c.Id.Equals(id), cancellationToken);
 
-            if(category is null)
+            if (category is null)
             {
                 _logger.LogError("Category not found exception in method DeleteUserAsync in CategoryService");
                 throw new NotFoundException($"Category with id: {id} not found.");
