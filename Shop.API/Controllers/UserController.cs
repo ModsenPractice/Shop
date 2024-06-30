@@ -28,7 +28,7 @@ public class UserController(IUserService userService) : ControllerBase
 
     [HttpPut("{id:guid}")]
     [Authorize(Policy = "Admin")]
-    public async Task<IActionResult> Put(Guid id,[FromBody] UserRequestUpdateDto userRequestDto)
+    public async Task<IActionResult> UpdateUserAsync(Guid id,[FromBody] UserRequestUpdateDto userRequestDto)
     {
         await userService.UpdateUserAsync(id, userRequestDto);
         return NoContent(); 
@@ -36,7 +36,7 @@ public class UserController(IUserService userService) : ControllerBase
 
     [HttpDelete("{id:guid}")]
     [Authorize(Policy = "Admin")]
-    public async Task<IActionResult> Delete(Guid id)
+    public async Task<IActionResult> DeleteUserAsync(Guid id)
     {
         await userService.DeleteUserAsync(id);
         return NoContent(); 
